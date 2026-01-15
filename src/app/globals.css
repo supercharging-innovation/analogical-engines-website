@@ -1,0 +1,439 @@
+/* ==========================================================================
+   ANALOGICAL ENGINES — DESIGN SYSTEM
+   "Harnessing Lightning" — Dark, cinematic, cartoony nightscape
+   ========================================================================== */
+
+/* CSS Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   DESIGN TOKENS
+   ========================================================================== */
+
+:root {
+  /* === Night Sky Palette === */
+  --night-sky: #0a0e1a;
+  --night-deep: #050810;
+  --mountain: #1a1f2e;
+  --cloud-dark: #252a3d;
+  --cloud-light: #3d4560;
+  --cloud-highlight: #4f5673;
+
+  /* === Lightning / Electric === */
+  --lightning-core: #f0f8ff;
+  --lightning-glow: #7dd3fc;
+  --lightning-ambient: #38bdf8;
+  --lightning-deep: #0ea5e9;
+
+  /* === Captured Energy === */
+  --captured-amber: #fbbf24;
+  --captured-orange: #f59e0b;
+  --grid-pulse: #22d3ee;
+  --grid-warm: #fef3c7;
+
+  /* === Text — ENHANCED CONTRAST === */
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #b8c5d6;
+  --text-dim: #7a8ba3;
+
+  /* === Ink Overlay — DARKER FOR DRAMA === */
+  --ink-dark: rgba(5, 8, 16, 0.96);
+  --ink-medium: rgba(5, 8, 16, 0.85);
+  --ink-light: rgba(10, 14, 26, 0.65);
+
+  /* === Typography — ENGINEERING PRECISION === */
+  /* Font variables are set by next/font in layout.tsx */
+  /* --font-display: Barlow Condensed (set via className) */
+  /* --font-body: Barlow (set via className) */
+  /* --font-mono: Source Code Pro (set via className) */
+
+  /* === Spacing === */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+  --space-2xl: 8rem;
+
+  /* === Transitions === */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 600ms;
+  --duration-dramatic: 1200ms;
+
+  /* === Shadows — ENHANCED GLOW === */
+  --glow-lightning: 0 0 30px rgba(125, 211, 252, 0.5),
+    0 0 60px rgba(56, 189, 248, 0.25), 0 0 100px rgba(14, 165, 233, 0.15);
+  --glow-amber: 0 0 30px rgba(251, 191, 36, 0.5),
+    0 0 60px rgba(245, 158, 11, 0.25);
+  --shadow-depth: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   BASE STYLES
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+  font-size: 18px;
+  /* Increased from 16px for better readability */
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--night-sky);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY — COMMANDING PRESENCE
+   ========================================================================== */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  font-size: clamp(3.25rem, 9vw, 6rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+h3 {
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+}
+
+p {
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  max-width: 60ch;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.text-accent {
+  background: linear-gradient(135deg,
+      var(--lightning-glow),
+      var(--lightning-ambient));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-warm {
+  background: linear-gradient(135deg,
+      var(--captured-amber),
+      var(--captured-orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================================================
+   SCROLLYTELLING SECTIONS
+   ========================================================================== */
+
+.scroll-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.scroll-section--full {
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* Dynamic viewport for mobile */
+}
+
+/* ==========================================================================
+   INK SPLOTCH OVERLAYS
+   ========================================================================== */
+
+.ink-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60%;
+  background: var(--ink-dark);
+  z-index: 10;
+}
+
+.ink-overlay--left {
+  left: 0;
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L75,0 Q85,15 78,30 Q70,45 82,60 Q90,75 75,90 Q68,100 0,100 Z' fill='white'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L75,0 Q85,15 78,30 Q70,45 82,60 Q90,75 75,90 Q68,100 0,100 Z' fill='white'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+}
+
+.ink-overlay--right {
+  right: 0;
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100,0 L25,0 Q15,15 22,30 Q30,45 18,60 Q10,75 25,90 Q32,100 100,100 Z' fill='white'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100,0 L25,0 Q15,15 22,30 Q30,45 18,60 Q10,75 25,90 Q32,100 100,100 Z' fill='white'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+}
+
+/* ==========================================================================
+   CONTENT CONTAINERS
+   ========================================================================== */
+
+.content-container {
+  position: relative;
+  z-index: 20;
+  padding: var(--space-xl);
+  max-width: 45%;
+}
+
+.content-container--left {
+  margin-right: auto;
+}
+
+.content-container--right {
+  margin-left: auto;
+}
+
+.content-container--center {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ==========================================================================
+   ANALOGY CARDS
+   ========================================================================== */
+
+.analogy-card {
+  background: linear-gradient(135deg,
+      rgba(37, 42, 61, 0.6),
+      rgba(26, 31, 46, 0.8));
+  border: 1px solid rgba(125, 211, 252, 0.15);
+  border-radius: 16px;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+  backdrop-filter: blur(10px);
+  transition: transform var(--duration-normal) var(--ease-smooth),
+    box-shadow var(--duration-normal) var(--ease-smooth),
+    border-color var(--duration-normal) var(--ease-smooth);
+}
+
+.analogy-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(125, 211, 252, 0.35);
+  box-shadow: var(--glow-lightning);
+}
+
+.analogy-card__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  font-size: 1.5rem;
+  margin: var(--space-sm) 0;
+}
+
+.analogy-card__arrow svg {
+  color: var(--lightning-glow);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   LIGHTNING EFFECTS
+   ========================================================================== */
+
+@keyframes lightning-flash {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  5%,
+  25% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0.8;
+  }
+
+  40% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px var(--lightning-glow));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 20px var(--lightning-glow)) drop-shadow(0 0 40px var(--lightning-ambient));
+  }
+}
+
+@keyframes grid-flow {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ==========================================================================
+   COMING SOON FOOTER
+   ========================================================================== */
+
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.coming-soon__badge {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  background: linear-gradient(135deg,
+      rgba(125, 211, 252, 0.15),
+      rgba(56, 189, 248, 0.1));
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--lightning-glow);
+}
+
+.coming-soon__logos {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  margin-top: var(--space-lg);
+  opacity: 0.8;
+}
+
+.coming-soon__logos img {
+  height: 40px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  transition: opacity var(--duration-normal) var(--ease-smooth);
+}
+
+.coming-soon__logos img:hover {
+  opacity: 1;
+}
+
+.coming-soon__attribution {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: var(--space-sm);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .ink-overlay {
+    width: 100%;
+    mask-image: none;
+    -webkit-mask-image: none;
+    background: linear-gradient(to bottom,
+        var(--ink-dark) 0%,
+        var(--ink-medium) 50%,
+        transparent 100%);
+  }
+
+  .content-container {
+    max-width: 100%;
+    padding: var(--space-lg);
+  }
+
+  .coming-soon__logos {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .coming-soon__logos img {
+    height: 32px;
+  }
+}
+
+/* ==========================================================================
+   UTILITIES
+   ========================================================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.fade-in {
+  animation: fadeIn var(--duration-slow) var(--ease-smooth) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
