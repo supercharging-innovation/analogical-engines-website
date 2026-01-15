@@ -187,8 +187,12 @@ export default function PaperShowcase() {
                     transition={{ duration: 0.6, delay: 0.6 }}
                     viewport={{ once: true }}
                     style={{
-                        marginTop: "1rem",
+                        marginTop: "1.25rem",
                         textAlign: "center",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "0.75rem",
                     }}
                 >
                     <span
@@ -201,6 +205,27 @@ export default function PaperShowcase() {
                     >
                         Built on a decade of peer-reviewed research at CMU
                     </span>
+                    <a
+                        href="/research"
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "0.4rem",
+                            padding: "0.5rem 1rem",
+                            background: "rgba(56, 189, 248, 0.08)",
+                            border: "1px solid rgba(56, 189, 248, 0.25)",
+                            borderRadius: "6px",
+                            color: "#7dd3fc",
+                            fontFamily: "var(--font-body)",
+                            fontSize: "0.75rem",
+                            fontWeight: 500,
+                            textDecoration: "none",
+                            transition: "all 0.2s ease",
+                        }}
+                    >
+                        <span>Read our white paper</span>
+                        <span style={{ opacity: 0.7 }}>→</span>
+                    </a>
                 </motion.div>
             </div>
 

@@ -9,7 +9,9 @@ import ComingSoon from "@/components/ComingSoon";
 import LightningCaptureScene from "@/components/LightningCaptureScene";
 import PaperShowcase from "@/components/PaperShowcase";
 import PowerGridScene from "@/components/PowerGridScene";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 import { useRef } from "react";
 
@@ -279,26 +281,39 @@ export default function Home() {
                             </span>
                         </h2>
 
-
-
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.5 }}
                             viewport={{ once: true }}
                             style={{
-                                fontSize: "1.35rem",
+                                fontSize: "1.2rem",
                                 color: "#e2e8f0",
-                                lineHeight: 1.8,
+                                lineHeight: 1.7,
+                                marginBottom: "1.5rem",
                             }}
                         >
                             A decade of peer-reviewed research into how breakthroughs actually happen.
-                            <br />
                             <br />
                             <span style={{ color: "#f8fafc", fontWeight: 600 }}>
                                 Now we&apos;re making them repeatable.
                             </span>
                         </motion.p>
+
+                        {/* YouTube Video */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.7 }}
+                            viewport={{ once: true }}
+                            style={{ marginBottom: "1.5rem" }}
+                        >
+                            <YouTubeEmbed
+                                videoId="4LLgrYOfxTU"
+                                title="Analogical Engines - How it works"
+                            />
+                        </motion.div>
+
                     </motion.div>
                 </InkOverlay>
             </section>

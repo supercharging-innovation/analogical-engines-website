@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Barlow, Barlow_Condensed, Source_Code_Pro } from "next/font/google";
+import { Barlow, Barlow_Condensed, Source_Code_Pro, Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 
 // Primary display - condensed, architectural, engineering feel
@@ -24,6 +24,22 @@ const sourceCodePro = Source_Code_Pro({
     variable: "--font-mono",
     display: "swap",
     weight: ["400", "500", "600"],
+});
+
+// Academic serif - for white paper headings
+const cormorantGaramond = Cormorant_Garamond({
+    subsets: ["latin"],
+    variable: "--font-serif",
+    display: "swap",
+    weight: ["400", "500", "600", "700"],
+});
+
+// Academic sans - for white paper body text
+const sourceSans = Source_Sans_3({
+    subsets: ["latin"],
+    variable: "--font-academic",
+    display: "swap",
+    weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -66,7 +82,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${barlowCondensed.variable} ${barlow.variable} ${sourceCodePro.variable}`}
+            className={`${barlowCondensed.variable} ${barlow.variable} ${sourceCodePro.variable} ${cormorantGaramond.variable} ${sourceSans.variable}`}
         >
             <body>{children}</body>
         </html>
