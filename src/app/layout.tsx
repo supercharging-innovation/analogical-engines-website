@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Analogical Engines — Coming Soon",
         description:
-            "Turning serendipity into a system for breakthrough innovation.",
+            "Scaling Serendipity",
         type: "website",
     },
     icons: {
