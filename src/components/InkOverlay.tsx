@@ -2,6 +2,7 @@
 
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface InkOverlayProps {
   side: "left" | "right";
@@ -10,6 +11,8 @@ interface InkOverlayProps {
 }
 
 export default function InkOverlay({ side, children, className = "" }: InkOverlayProps) {
+  const isMobile = useIsMobile();
+
   // Different organic blob shapes for variety
   const leftMask = `
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,6 +48,52 @@ export default function InkOverlay({ side, children, className = "" }: InkOverla
 
   const encodedMask = encodeURIComponent(side === "left" ? leftMask : rightMask);
 
+  // Treat undefined (SSR) and true as mobile to prevent desktop animations during hydration
+  const renderMobile = isMobile !== false;
+
+  // Mobile styles: full width, no mask, gradient overlay, vertically scrollable content
+  if (renderMobile) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+        viewport={{ once: true }}
+        className={className}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "linear-gradient(180deg, rgba(5, 8, 16, 0.95) 0%, rgba(5, 8, 16, 0.90) 50%, rgba(5, 8, 16, 0.95) 100%)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "2rem 1.25rem",
+          overflowX: "hidden",
+          overflowY: "auto",
+          boxSizing: "border-box",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "100%",
+            width: "100%",
+            boxSizing: "border-box",
+            wordBreak: "break-word",
+          }}
+        >
+          {children}
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Desktop styles: original asymmetric layout with mask
   return (
     <motion.div
       initial={{ opacity: 0, x: side === "left" ? -50 : 50 }}

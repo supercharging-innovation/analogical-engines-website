@@ -36,16 +36,20 @@ const smartSteps = [
     },
 ];
 
-export default function PaperShowcase() {
+interface PaperShowcaseProps {
+    compact?: boolean;
+}
+
+export default function PaperShowcase({ compact = false }: PaperShowcaseProps) {
     return (
-        <div style={{ position: "relative", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ position: "relative", width: "100%", height: compact ? "auto" : "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div
                 style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: "0.5rem",
+                    gap: compact ? "0.35rem" : "0.5rem",
                     width: "90%",
-                    maxWidth: "400px",
+                    maxWidth: compact ? "320px" : "400px",
                 }}
             >
                 {/* Header */}
@@ -80,14 +84,14 @@ export default function PaperShowcase() {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         viewport={{ once: true }}
-                        whileHover={{ x: 8, transition: { duration: 0.2 } }}
+                        whileHover={compact ? {} : { x: 8, transition: { duration: 0.2 } }}
                         style={{
                             display: "flex",
                             alignItems: "center",
-                            gap: "1rem",
-                            padding: "0.875rem 1rem",
+                            gap: compact ? "0.75rem" : "1rem",
+                            padding: compact ? "0.6rem 0.75rem" : "0.875rem 1rem",
                             background: "rgba(15, 23, 42, 0.6)",
-                            borderRadius: "12px",
+                            borderRadius: compact ? "8px" : "12px",
                             border: "1px solid rgba(255, 255, 255, 0.05)",
                             backdropFilter: "blur(10px)",
                             cursor: "default",
@@ -110,9 +114,9 @@ export default function PaperShowcase() {
                         {/* Letter badge */}
                         <div
                             style={{
-                                width: "36px",
-                                height: "36px",
-                                borderRadius: "8px",
+                                width: compact ? "28px" : "36px",
+                                height: compact ? "28px" : "36px",
+                                borderRadius: compact ? "6px" : "8px",
                                 background: `${step.color}15`,
                                 border: `1px solid ${step.color}40`,
                                 display: "flex",
@@ -124,7 +128,7 @@ export default function PaperShowcase() {
                             <span
                                 style={{
                                     fontFamily: "var(--font-display)",
-                                    fontSize: "1.1rem",
+                                    fontSize: compact ? "0.85rem" : "1.1rem",
                                     fontWeight: 700,
                                     color: step.color,
                                 }}
@@ -138,10 +142,10 @@ export default function PaperShowcase() {
                             <div
                                 style={{
                                     fontFamily: "var(--font-display)",
-                                    fontSize: "0.95rem",
+                                    fontSize: compact ? "0.8rem" : "0.95rem",
                                     fontWeight: 600,
                                     color: "#f8fafc",
-                                    marginBottom: "0.2rem",
+                                    marginBottom: compact ? "0.1rem" : "0.2rem",
                                 }}
                             >
                                 {step.title}
@@ -149,9 +153,9 @@ export default function PaperShowcase() {
                             <div
                                 style={{
                                     fontFamily: "var(--font-body)",
-                                    fontSize: "0.75rem",
+                                    fontSize: compact ? "0.65rem" : "0.75rem",
                                     color: "#94a3b8",
-                                    lineHeight: 1.4,
+                                    lineHeight: 1.35,
                                 }}
                             >
                                 {step.description}
@@ -187,12 +191,12 @@ export default function PaperShowcase() {
                     transition={{ duration: 0.6, delay: 0.6 }}
                     viewport={{ once: true }}
                     style={{
-                        marginTop: "1.25rem",
+                        marginTop: compact ? "0.75rem" : "1.25rem",
                         textAlign: "center",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        gap: "0.75rem",
+                        gap: compact ? "0.5rem" : "0.75rem",
                     }}
                 >
                     <span

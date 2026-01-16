@@ -1,6 +1,7 @@
 "use client";
 
 import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import NightscapeBackground from "@/components/NightscapeBackground";
 import InkOverlay from "@/components/InkOverlay";
 import AnalogyCarousel from "@/components/AnalogyCarousel";
@@ -18,6 +19,7 @@ import { useRef } from "react";
 export default function Home() {
     const mainRef = useRef<HTMLElement>(null);
     const { progress, activeSection } = useScrollProgress(mainRef);
+    const isMobile = useIsMobile();
 
     const analogies = [
         { source: "Kingfisher's beak", target: "Shinkansen bullet train", image: "/images/analogies/kingfisher-train.jpeg" },
@@ -164,12 +166,13 @@ export default function Home() {
                         <h2
                             style={{
                                 fontFamily: "var(--font-display)",
-                                fontSize: "clamp(2rem, 5vw, 3rem)",
+                                fontSize: isMobile ? "clamp(1.75rem, 6vw, 2.25rem)" : "clamp(2rem, 5vw, 3rem)",
                                 fontWeight: 600,
                                 lineHeight: 1.15,
-                                marginBottom: "1.75rem",
+                                marginBottom: isMobile ? "1.25rem" : "1.75rem",
                                 color: "#f8fafc",
                                 textShadow: "0 4px 30px rgba(0, 0, 0, 0.4)",
+                                textAlign: isMobile ? "center" : "left",
                             }}
                         >
                             History&apos;s greatest breakthroughs
@@ -194,10 +197,11 @@ export default function Home() {
                             transition={{ duration: 0.6, delay: 0.6 }}
                             viewport={{ once: true }}
                             style={{
-                                fontSize: "1.35rem",
+                                fontSize: isMobile ? "1rem" : "1.35rem",
                                 color: "#e2e8f0",
-                                lineHeight: 1.8,
+                                lineHeight: 1.7,
                                 fontStyle: "italic",
+                                textAlign: isMobile ? "center" : "left",
                             }}
                         >
                             But these moments of insight were rare.
@@ -224,27 +228,29 @@ export default function Home() {
                     scrollSnapAlign: "start",
                 }}
             >
-                {/* Animated Lightning Capture Scene on LEFT side */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.3 }}
-                    viewport={{ once: true }}
-                    style={{
-                        position: "absolute",
-                        left: 0,
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        width: "50%",
-                        height: "80%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        zIndex: 5,
-                    }}
-                >
-                    <PaperShowcase />
-                </motion.div>
+                {/* Animated Lightning Capture Scene on LEFT side - hidden on mobile */}
+                {!isMobile && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.3 }}
+                        viewport={{ once: true }}
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            width: "50%",
+                            height: "80%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            zIndex: 5,
+                        }}
+                    >
+                        <PaperShowcase />
+                    </motion.div>
+                )}
 
                 {/* Content on RIGHT side with ink overlay */}
                 <InkOverlay side="right">
@@ -260,12 +266,13 @@ export default function Home() {
                         <h2
                             style={{
                                 fontFamily: "var(--font-display)",
-                                fontSize: "clamp(2.25rem, 5.5vw, 3.5rem)",
+                                fontSize: isMobile ? "clamp(1.75rem, 6vw, 2.25rem)" : "clamp(2.25rem, 5.5vw, 3.5rem)",
                                 fontWeight: 600,
                                 lineHeight: 1.1,
-                                marginBottom: "1.75rem",
+                                marginBottom: isMobile ? "1.25rem" : "1.75rem",
                                 color: "#f8fafc",
                                 textShadow: "0 4px 30px rgba(0, 0, 0, 0.4)",
+                                textAlign: isMobile ? "center" : "left",
                             }}
                         >
                             What if you could{" "}
@@ -287,10 +294,11 @@ export default function Home() {
                             transition={{ duration: 0.6, delay: 0.5 }}
                             viewport={{ once: true }}
                             style={{
-                                fontSize: "1.2rem",
+                                fontSize: isMobile ? "0.95rem" : "1.2rem",
                                 color: "#e2e8f0",
-                                lineHeight: 1.7,
-                                marginBottom: "1.5rem",
+                                lineHeight: 1.6,
+                                marginBottom: isMobile ? "1rem" : "1.5rem",
+                                textAlign: isMobile ? "center" : "left",
                             }}
                         >
                             A decade of peer-reviewed research into how breakthroughs actually happen.
@@ -306,17 +314,49 @@ export default function Home() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.7 }}
                             viewport={{ once: true }}
-                            style={{ marginBottom: "1.5rem" }}
+                            style={{
+                                marginBottom: "1.5rem",
+                                display: "flex",
+                                justifyContent: isMobile ? "center" : "flex-start",
+                            }}
                         >
                             <YouTubeEmbed
                                 videoId="4LLgrYOfxTU"
                                 title="Analogical Engines - How it works"
+                                compact={isMobile === true}
                             />
                         </motion.div>
 
                     </motion.div>
                 </InkOverlay>
             </section>
+
+            {/* ========== SECTION 3b: Our Framework (Mobile-only separate section) ========== */}
+            {isMobile && (
+                <section
+                    style={{
+                        position: "relative",
+                        minHeight: "100vh",
+                        height: "100vh",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        overflow: "hidden",
+                        scrollSnapAlign: "start",
+                    }}
+                >
+                    <InkOverlay side="left">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            viewport={{ once: true }}
+                        >
+                            <PaperShowcase compact />
+                        </motion.div>
+                    </InkOverlay>
+                </section>
+            )}
 
             {/* ========== SECTION 4: Building the Grid ========== */}
             <section
@@ -330,27 +370,29 @@ export default function Home() {
                     scrollSnapAlign: "start",
                 }}
             >
-                {/* Animated Power Grid Scene on RIGHT side */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.3 }}
-                    viewport={{ once: true }}
-                    style={{
-                        position: "absolute",
-                        right: 0,
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        width: "50%",
-                        height: "80%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        zIndex: 5,
-                    }}
-                >
-                    <PowerGridScene />
-                </motion.div>
+                {/* Animated Power Grid Scene on RIGHT side - hidden on mobile */}
+                {!isMobile && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.3 }}
+                        viewport={{ once: true }}
+                        style={{
+                            position: "absolute",
+                            right: 0,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            width: "50%",
+                            height: "80%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            zIndex: 5,
+                        }}
+                    >
+                        <PowerGridScene />
+                    </motion.div>
+                )}
 
                 {/* Content on LEFT side with ink overlay */}
                 <InkOverlay side="left">
@@ -363,12 +405,13 @@ export default function Home() {
                         <h2
                             style={{
                                 fontFamily: "var(--font-display)",
-                                fontSize: "clamp(2rem, 5vw, 3rem)",
+                                fontSize: isMobile ? "clamp(1.75rem, 6vw, 2.25rem)" : "clamp(2rem, 5vw, 3rem)",
                                 fontWeight: 600,
                                 lineHeight: 1.15,
-                                marginBottom: "1.75rem",
+                                marginBottom: isMobile ? "1.25rem" : "1.75rem",
                                 color: "#f8fafc",
                                 textShadow: "0 4px 30px rgba(0, 0, 0, 0.4)",
+                                textAlign: isMobile ? "center" : "left",
                             }}
                         >
                             Now we&apos;re building
@@ -391,10 +434,11 @@ export default function Home() {
                             transition={{ duration: 0.6, delay: 0.4 }}
                             viewport={{ once: true }}
                             style={{
-                                fontSize: "1.5rem",
+                                fontSize: isMobile ? "1.1rem" : "1.5rem",
                                 color: "#f8fafc",
-                                lineHeight: 1.8,
-                                marginBottom: "1.25rem",
+                                lineHeight: 1.7,
+                                marginBottom: isMobile ? "0.75rem" : "1.25rem",
+                                textAlign: isMobile ? "center" : "left",
                             }}
                         >
                             <strong>Analogical Engines</strong> turns serendipity into a system.
@@ -406,9 +450,10 @@ export default function Home() {
                             transition={{ duration: 0.6, delay: 0.6 }}
                             viewport={{ once: true }}
                             style={{
-                                fontSize: "1.25rem",
+                                fontSize: isMobile ? "0.95rem" : "1.25rem",
                                 color: "#e2e8f0",
-                                lineHeight: 1.8,
+                                lineHeight: 1.7,
+                                textAlign: isMobile ? "center" : "left",
                             }}
                         >
                             An AI platform that helps R&D teams escape fixation and discover non-obvious solutions from unexpected domains.
