@@ -21,8 +21,8 @@ export default function YouTubeEmbed({ videoId, title = "YouTube video", classNa
             style={{
                 position: "relative",
                 width: "100%",
-                maxWidth: compact ? "280px" : "100%",
-                paddingBottom: compact ? "45%" : "56.25%", // Compact: ~16:11, Full: 16:9
+                maxWidth: compact ? "340px" : "100%",
+                paddingBottom: "56.25%", // Standard 16:9 aspect ratio
                 borderRadius: compact ? "12px" : "16px",
                 overflow: "hidden",
                 background: "rgba(15, 23, 42, 0.8)",

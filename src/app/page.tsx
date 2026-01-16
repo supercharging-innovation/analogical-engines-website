@@ -34,7 +34,7 @@ export default function Home() {
                 position: "relative",
                 height: isMobile ? "100dvh" : "100vh",
                 overflowY: "auto",
-                scrollSnapType: isMobile ? "y proximity" : "y mandatory",
+                scrollSnapType: "y mandatory",
                 overscrollBehavior: "contain",
                 WebkitOverflowScrolling: "touch",
             }}
