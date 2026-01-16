@@ -32,10 +32,11 @@ export default function Home() {
             ref={mainRef}
             style={{
                 position: "relative",
-                height: "100vh",
+                height: isMobile ? "100dvh" : "100vh",
                 overflowY: "auto",
-                scrollSnapType: "y mandatory",
-                scrollBehavior: "smooth",
+                scrollSnapType: isMobile ? "y proximity" : "y mandatory",
+                overscrollBehavior: "contain",
+                WebkitOverflowScrolling: "touch",
             }}
         >
             {/* Fixed Background */}
@@ -45,13 +46,14 @@ export default function Home() {
             <section
                 style={{
                     position: "relative",
-                    minHeight: "100vh",
-                    height: "100vh",
+                    minHeight: isMobile ? "100dvh" : "100vh",
+                    height: isMobile ? "100dvh" : "100vh",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     zIndex: 1,
                     scrollSnapAlign: "start",
+                    scrollSnapStop: "always",
                 }}
             >
                 <motion.div
@@ -138,8 +140,8 @@ export default function Home() {
             <section
                 style={{
                     position: "relative",
-                    minHeight: "100vh",
-                    height: "100vh",
+                    minHeight: isMobile ? "100dvh" : "100vh",
+                    height: isMobile ? "100dvh" : "100vh",
                     display: "flex",
                     alignItems: "center",
                     overflow: "hidden",
@@ -220,8 +222,8 @@ export default function Home() {
             <section
                 style={{
                     position: "relative",
-                    minHeight: "100vh",
-                    height: "100vh",
+                    minHeight: isMobile ? "100dvh" : "100vh",
+                    height: isMobile ? "100dvh" : "100vh",
                     display: "flex",
                     alignItems: "center",
                     overflow: "hidden",
@@ -336,8 +338,8 @@ export default function Home() {
                 <section
                     style={{
                         position: "relative",
-                        minHeight: "100vh",
-                        height: "100vh",
+                        minHeight: "100dvh",
+                        height: "100dvh",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -362,8 +364,8 @@ export default function Home() {
             <section
                 style={{
                     position: "relative",
-                    minHeight: "100vh",
-                    height: "100vh",
+                    minHeight: isMobile ? "100dvh" : "100vh",
+                    height: isMobile ? "100dvh" : "100vh",
                     display: "flex",
                     alignItems: "center",
                     overflow: "hidden",
@@ -466,13 +468,14 @@ export default function Home() {
             <section
                 style={{
                     position: "relative",
-                    minHeight: "100vh",
-                    height: "100vh",
+                    minHeight: isMobile ? "100dvh" : "100vh",
+                    height: isMobile ? "100dvh" : "100vh",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     zIndex: 1,
                     scrollSnapAlign: "start",
+                    scrollSnapStop: "always",
                 }}
             >
                 <ComingSoon />

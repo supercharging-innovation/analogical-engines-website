@@ -381,6 +381,11 @@ p {
    ========================================================================== */
 
 @media (max-width: 768px) {
+  /* Disable smooth scroll on mobile to prevent conflicts with snap */
+  html {
+    scroll-behavior: auto;
+  }
+
   .ink-overlay {
     width: 100%;
     mask-image: none;

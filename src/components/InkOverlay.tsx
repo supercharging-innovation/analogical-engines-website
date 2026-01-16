@@ -51,7 +51,7 @@ export default function InkOverlay({ side, children, className = "" }: InkOverla
   // Treat undefined (SSR) and true as mobile to prevent desktop animations during hydration
   const renderMobile = isMobile !== false;
 
-  // Mobile styles: full width, no mask, gradient overlay, vertically scrollable content
+  // Mobile styles: full width, no mask, gradient overlay
   if (renderMobile) {
     return (
       <motion.div
@@ -74,9 +74,9 @@ export default function InkOverlay({ side, children, className = "" }: InkOverla
           flexDirection: "column",
           justifyContent: "center",
           padding: "2rem 1.25rem",
-          overflowX: "hidden",
-          overflowY: "auto",
+          overflow: "hidden",
           boxSizing: "border-box",
+          touchAction: "pan-y",
         }}
       >
         <div
